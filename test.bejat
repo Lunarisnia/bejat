@@ -8,15 +8,16 @@ panggilin bilangin pake world
 
 ini buat balikin nomor pakde pake nomor x sama tulisan y sama bulen z {
     230 ini nomor nya si pakde
+    kalo x sama ama y {
+        panggilin bilangin pake "hahaha"
+    } kalo ga panggilin pakde pake x sama y sama z lebih dari y {
+        panggilin bilangin pake "B"
+    } atoga {
+        panggilin bilangin pake "C"
+    }
+
+
 }
 
 panggilin pakde pake x sama y sama z
-
-kalo x sama ama y {
-    panggilin bilangin pake "hahaha"
-} kalo ga panggilin pakde pake x sama y sama z lebih dari y {
-    panggilin bilangin pake "B"
-} atoga {
-    panggilin bilangin pake "C"
-}
 
