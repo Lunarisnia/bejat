@@ -1,0 +1,22 @@
+100 ini nomor nya si x
+300 ini nomor nya si y
+"Hello" ini tulisan nya si world
+x dikurang y ini nomor nya si z
+
+panggilin bilangin pake world
+
+
+ini buat balikin nomor pakde pake nomor x sama tulisan y sama bulen z {
+    230 ini nomor nya si pakde
+}
+
+panggilin pakde pake x sama y sama z
+
+kalo x sama ama y {
+    panggilin bilangin pake "hahaha"
+} kalo ga panggilin pakde pake x sama y sama z lebih dari y {
+    panggilin bilangin pake "B"
+} atoga {
+    panggilin bilangin pake "C"
+}
+
