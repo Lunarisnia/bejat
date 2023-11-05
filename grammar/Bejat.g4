@@ -45,9 +45,9 @@ expression: (atom | IDENTIFIER | callFunction) (
 	) (atom | IDENTIFIER | callFunction);
 
 callFunction:
-	'panggilin' IDENTIFIER 'pake' (
+	'panggilin' IDENTIFIER  ('pake'
 		(atom | IDENTIFIER) ('sama' (atom | IDENTIFIER))*?
-	);
+	)*?;
 
 defineFunction:
 	'ini buat balikin' DATATYPES IDENTIFIER (
