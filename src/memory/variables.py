@@ -4,7 +4,7 @@ from grammar.BejatParser import BejatParser
 class Variable:
     global_variable_map = {}
 
-    def declareVariable(self, key: str, data_type: str, value: str, ttype: type):
+    def declareVariable(self, key: str, data_type: str, value, ttype: type):
         # 1. Check if the var already exist (DONE)
         # 2. Check if the type is the correct data type (DONE)
         # 3. Check if its a variable (DONE)
@@ -16,21 +16,15 @@ class Variable:
             exit(1)
 
         if ttype == BejatParser.AtomContext:
-            if data_type == "nomor":
-                try:
-                    parsed_value = int(value)
-                except ValueError:
-                    if value.replace('.', '', 1).isdigit():
-                        parsed_value = float(value)
-                    else:
-                        print("what the fuck is wrong with you?")
-                        exit(1)
-            elif data_type == "bulen":
-                parsed_value = True if value == "bener" else False
-            elif data_type == "tulisan":
+            value_type = type(value)
+            if data_type == "nomor" and (value_type == float or value_type == int):
+                parsed_value = value
+            elif data_type == "bulen" and value_type == bool:
+                parsed_value = value
+            elif data_type == "tulisan" and value_type == str:
                 parsed_value = value
             else:
-                print('hah???')
+                print(f'Salah type lah itu bambang, emg {value} itu {data_type}?')
                 exit(1)
         elif ttype == BejatParser.IDENTIFIER:
             if value in self.global_variable_map:
@@ -49,6 +43,7 @@ class Variable:
                 exit(1)
         # elif ttype == BejatParser.
         self.global_variable_map[key] = parsed_value
+        print(self.global_variable_map)
 
 
 variable_notekeeper = Variable()

@@ -1,6 +1,7 @@
 from grammar.BejatParser import BejatParser
 from grammar.BejatVisitor import BejatVisitor
 from src.memory.variables import variable_notekeeper
+from src.memory.to_number import toNumber, ParsingException
 
 
 class BejatCustomVisitor(BejatVisitor):
@@ -12,18 +13,7 @@ class BejatCustomVisitor(BejatVisitor):
 
     def visitVariable(self, ctx: BejatParser.VariableContext):
         if ctx.atom():
-            atom_context: BejatParser.AtomContext = ctx.atom()
-            value = None
-            if atom_context.STRING():
-                value = atom_context.STRING().__str__()
-            elif atom_context.BOOLEAN():
-                value = atom_context.BOOLEAN().__str__()
-            elif atom_context.NUMBER():
-                value = atom_context.NUMBER().__str__()
-            else:
-                print("Yang bener lah tolol")
-                exit(1)
-
+            value = self.visit(ctx.atom())
             variable_notekeeper.declareVariable(ctx.IDENTIFIER(0).__str__(),
                                                 ctx.DATATYPES().__str__(),
                                                 value, BejatParser.AtomContext)
@@ -33,7 +23,7 @@ class BejatCustomVisitor(BejatVisitor):
                                                 ctx.IDENTIFIER(0).__str__(),
                                                 BejatParser.IDENTIFIER)
         elif ctx.expression():
-            expression_result = self.visitExpression(ctx.expression())
+            expression_result = self.visit(ctx.expression())
             variable_notekeeper.declareVariable(ctx.IDENTIFIER(0).__str__(),
                                                 ctx.DATATYPES().__str__(),
                                                 expression_result, BejatParser.ExpressionContext)
@@ -43,7 +33,22 @@ class BejatCustomVisitor(BejatVisitor):
         return 0
 
     def visitAtom(self, ctx: BejatParser.AtomContext):
-        return super().visitAtom(ctx)
+        value = None
+        if ctx.STRING():
+            value = ctx.STRING().__str__()
+        elif ctx.BOOLEAN():
+            value = True if value == ctx.BOOLEAN().__str__() else False
+        elif ctx.NUMBER():
+            value = ctx.NUMBER().__str__()
+            try:
+                value = toNumber(value)
+            except ParsingException:
+                print("what the fuck is wrong with you?")
+                exit(1)
+        else:
+            print("Yang bener lah tolol")
+            exit(1)
+        return value
     
     def visitExpression(self, ctx: BejatParser.ExpressionContext):
         if ctx.MATHOPERATORS():
@@ -54,7 +59,41 @@ class BejatCustomVisitor(BejatVisitor):
             # TODO: Continue This
             # TODO: Consider Modulo
             operator = ctx.MATHOPERATORS().__str__()
-            print(operator)
+            if operator == "ditambah":
+                allowed_mix = {
+                    "str": "str",
+                    "num": "num"
+                }
+                # We cannot know which one is left/right value this way
+                # print(ctx.getChild(0).)
+                
+
+                # # String + String
+                # # Not String + Num / Num + String
+                # left_value = None
+                # right_value = None
+                # if ctx.atom().__len__() > 0:
+                #     if ctx.atom(0).STRING():
+                #         left_value = ctx.atom(0).STRING().__str__()
+                #     if ctx.atom(1) and 
+                # if ctx.IDENTIFIER().__len__() > 0:
+                #     pass
+
+                # if ctx.callFunction().__len__() > 0:
+                #     pass
+                # # else:
+                # #     print("Gimana ceritanya?")
+                # #     exit(1)
+            elif operator == "dikurang":
+                pass
+            elif operator == "dibagi":
+                pass
+            elif operator == "dikali":
+                pass
+            else:
+                print("impossible")
+                exit(1)
+            # print(operator)
             pass
         elif ctx.COMPARISONOPERATORS():
             # Allowed types
