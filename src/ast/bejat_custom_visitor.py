@@ -10,21 +10,24 @@ class BejatCustomVisitor(BejatVisitor):
 
     def visitProgram(self, ctx: BejatParser.ProgramContext):
         return super().visitProgram(ctx)
+    
+    def visitIdentifier(self, ctx: BejatParser.IdentifierContext):
+        return ctx.IDENTIFIER().__str__()
 
     def visitVariable(self, ctx: BejatParser.VariableContext):
         if ctx.atom():
             value = self.visit(ctx.atom())
-            variable_notekeeper.declareVariable(ctx.IDENTIFIER(0).__str__(),
+            variable_notekeeper.declareVariable(self.visit(ctx.identifier(0)),
                                                 ctx.DATATYPES().__str__(),
                                                 value, BejatParser.AtomContext)
-        elif ctx.IDENTIFIER().__len__() > 1:
-            variable_notekeeper.declareVariable(ctx.IDENTIFIER(1).__str__(),
+        elif ctx.identifier().__len__() > 1:
+            variable_notekeeper.declareVariable(self.visit(ctx.identifier(1)),
                                                 ctx.DATATYPES().__str__(),
-                                                ctx.IDENTIFIER(0).__str__(),
-                                                BejatParser.IDENTIFIER)
+                                                self.visit(ctx.identifier(0)),
+                                                BejatParser.IdentifierContext)
         elif ctx.expression():
             expression_result = self.visit(ctx.expression())
-            variable_notekeeper.declareVariable(ctx.IDENTIFIER(0).__str__(),
+            variable_notekeeper.declareVariable(self.visit(ctx.identifier(0)),
                                                 ctx.DATATYPES().__str__(),
                                                 expression_result, BejatParser.ExpressionContext)
         else:
@@ -65,7 +68,7 @@ class BejatCustomVisitor(BejatVisitor):
                     "num": "num"
                 }
                 # We cannot know which one is left/right value this way
-                # print(ctx.getChild(0).)
+                print(self.visit(ctx.getChild(0)))
                 
 
                 # # String + String

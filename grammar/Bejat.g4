@@ -35,23 +35,25 @@ start: program EOF;
 
 program: (variable | callFunction | defineFunction | statement | variableReassignment)*?;
 
-variable: (atom | IDENTIFIER | expression) 'ini' DATATYPES 'nya' IDENTIFIER;
+identifier: IDENTIFIER;
 
-variableReassignment: (atom | IDENTIFIER | expression) 'ini' 'ganti' 'nya' IDENTIFIER;
+variable: (atom | identifier | expression) 'ini' DATATYPES 'nya' identifier;
 
-expression: (atom | IDENTIFIER | callFunction) (
+variableReassignment: (atom | identifier | expression) 'ini' 'ganti' 'nya' identifier;
+
+expression: (atom | identifier | callFunction) (
 		MATHOPERATORS
 		| COMPARISONOPERATORS
-	) (atom | IDENTIFIER | callFunction);
+	) (atom | identifier | callFunction);
 
 callFunction:
-	'panggilin' IDENTIFIER  ('pake'
-		(atom | IDENTIFIER) ('sama' (atom | IDENTIFIER))*?
+	'panggilin' identifier  ('pake'
+		(atom | identifier) ('sama' (atom | identifier))*?
 	)*?;
 
 defineFunction:
-	'ini buat balikin' DATATYPES IDENTIFIER (
-		'pake' DATATYPES IDENTIFIER ('sama' DATATYPES IDENTIFIER)*?
+	'ini buat balikin' DATATYPES identifier (
+		'pake' DATATYPES identifier ('sama' DATATYPES identifier)*?
 	)? '{' program '}';
 
 statement:
