@@ -6,6 +6,12 @@ bener ini bulen nya c
 
 b ini tulisan nya z
 
-a ditambah 1 ini nomor nya y
+5.2 ditambah 3 ini nomor nya y
 
-b ditambah panggilin foo ini tulisan nya k
+"Hello" ditambah b ini tulisan nya k
+
+ini buat balikin nomor pakde {
+    balikin 999
+}
+
+panggilin pakde
