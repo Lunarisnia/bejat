@@ -1,0 +1,1 @@
+antlr4 ./grammar/Bejat.g4 -Dlanguage=Python3 -visitor
