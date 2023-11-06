@@ -4,6 +4,12 @@ from grammar.BejatParser import BejatParser
 class Variable:
     global_variable_map = {}
 
+    def getVariable(self, key: str):
+        if key in self.global_variable_map:
+            return self.global_variable_map[key]
+        else:
+            return None
+
     def declareVariable(self, key: str, data_type: str, value, ttype: type):
         # 1. Check if the var already exist (DONE)
         # 2. Check if the type is the correct data type (DONE)
@@ -28,7 +34,7 @@ class Variable:
                 exit(1)
         elif ttype == BejatParser.IdentifierContext:
             # TODO: Move the exist check on visitor
-            if value in self.global_variable_map:
+            if self.getVariable(value) != None:
                 value_type = type(self.global_variable_map[value])
                 if (value_type == float or value_type == int) and data_type == "nomor":
                     parsed_value = self.global_variable_map[value]
