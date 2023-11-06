@@ -10,7 +10,8 @@ fragment MATH_OPERATORS:
 	'ditambah'
 	| 'dikurang'
 	| 'dikali'
-	| 'dibagi';
+	| 'dibagi'
+	| 'sisa bagi';
 fragment COMPARISON_OPERATORS:
 	'sama ama'
 	| 'ga sama ama'
