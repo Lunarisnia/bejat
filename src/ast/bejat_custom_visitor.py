@@ -10,7 +10,15 @@ class BejatCustomVisitor(BejatVisitor):
 
     def visitProgram(self, ctx: BejatParser.ProgramContext):
         return super().visitProgram(ctx)
-    
+
+    def identifierValue(self, ctx: BejatParser.IdentifierContext):
+        value = variable_notekeeper.getVariable(ctx.IDENTIFIER().__str__())
+        if value != None:
+            return value
+        else:
+            print("Variabelnya belom dibuat bang.")
+            exit(1)
+
     def visitIdentifier(self, ctx: BejatParser.IdentifierContext):
         return ctx.IDENTIFIER().__str__()
 
@@ -27,6 +35,7 @@ class BejatCustomVisitor(BejatVisitor):
                                                 BejatParser.IdentifierContext)
         elif ctx.expression():
             expression_result = self.visit(ctx.expression())
+            print(expression_result)
             variable_notekeeper.declareVariable(self.visit(ctx.identifier(0)),
                                                 ctx.DATATYPES().__str__(),
                                                 expression_result, BejatParser.ExpressionContext)
@@ -40,7 +49,7 @@ class BejatCustomVisitor(BejatVisitor):
         if ctx.STRING():
             value = ctx.STRING().__str__()
         elif ctx.BOOLEAN():
-            value = True if value == ctx.BOOLEAN().__str__() else False
+            value = True if ctx.BOOLEAN().__str__() == "bener" else False
         elif ctx.NUMBER():
             value = ctx.NUMBER().__str__()
             try:
@@ -52,52 +61,61 @@ class BejatCustomVisitor(BejatVisitor):
             print("Yang bener lah tolol")
             exit(1)
         return value
-    
+
     def visitExpression(self, ctx: BejatParser.ExpressionContext):
+        left = None
+        right = None
+
+        # TODO: Parse function defining
+        # TODO: Do Function call
+        if type(ctx.getChild(0)) == BejatParser.IdentifierContext:
+            left = self.identifierValue(ctx.getChild(0))
+        else:
+            left = self.visit(ctx.getChild(0))
+
+        if type(ctx.getChild(2)) == BejatParser.IdentifierContext:
+            right = self.identifierValue(ctx.getChild(2))
+        else:
+            right = self.visit(ctx.getChild(2))
+        # print(f"Left: {left}, Right: {right}")
+
         if ctx.MATHOPERATORS():
-            # Allowed types
-            # String + String = String
-            # Number + or - or / or * Number = Number
-            # Number + or - or / or * Boolean(0 or 1) = Number
-            # TODO: Continue This
-            # TODO: Consider Modulo
             operator = ctx.MATHOPERATORS().__str__()
             if operator == "ditambah":
-                allowed_mix = {
-                    "str": "str",
-                    "num": "num"
-                }
-                # We cannot know which one is left/right value this way
-                print(self.visit(ctx.getChild(0)))
-                
-
-                # # String + String
-                # # Not String + Num / Num + String
-                # left_value = None
-                # right_value = None
-                # if ctx.atom().__len__() > 0:
-                #     if ctx.atom(0).STRING():
-                #         left_value = ctx.atom(0).STRING().__str__()
-                #     if ctx.atom(1) and 
-                # if ctx.IDENTIFIER().__len__() > 0:
-                #     pass
-
-                # if ctx.callFunction().__len__() > 0:
-                #     pass
-                # # else:
-                # #     print("Gimana ceritanya?")
-                # #     exit(1)
+                if type(left) == str and type(right) == str:
+                    return left + right
+                elif (type(left) == int or type(left) == float or type(left) == bool) and (type(right) == int or type(right) == float or type(right) == bool):
+                    return left + right
+                else:
+                    print(f"{left} {operator} {right}????? Mana bisa bang")
+                    exit(1)
             elif operator == "dikurang":
-                pass
+                if (type(left) == int or type(left) == float or type(left) == bool) and (type(right) == int or type(right) == float or type(right) == bool):
+                    return left - right
+                else:
+                    print(f"{left} {operator} {right}????? Mana bisa bang")
+                    exit(1)
             elif operator == "dibagi":
-                pass
+                if (type(left) == int or type(left) == float or type(left) == bool) and (type(right) == int or type(right) == float or type(right) == bool):
+                    return left / right
+                else:
+                    print(f"{left} {operator} {right}????? Mana bisa bang")
+                    exit(1)
             elif operator == "dikali":
-                pass
+                if (type(left) == int or type(left) == float or type(left) == bool) and (type(right) == int or type(right) == float or type(right) == bool):
+                    return left * right
+                else:
+                    print(f"{left} {operator} {right}????? Mana bisa bang")
+                    exit(1)
+            elif operator == "sisa bagi":
+                if (type(left) == int or type(left) == float or type(left) == bool) and (type(right) == int or type(right) == float or type(right) == bool):
+                    return left % right
+                else:
+                    print(f"{left} {operator} {right}????? Mana bisa bang")
+                    exit(1)
             else:
                 print("impossible")
                 exit(1)
-            # print(operator)
-            pass
         elif ctx.COMPARISONOPERATORS():
             # Allowed types
             # String == | != String = String
@@ -107,4 +125,4 @@ class BejatCustomVisitor(BejatVisitor):
         else:
             print('Gimana ceritanya bisa sampe sini.')
             exit(1)
-        return True # TODO: Return the result of the calculation
+        return None
