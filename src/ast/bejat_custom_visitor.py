@@ -35,7 +35,6 @@ class BejatCustomVisitor(BejatVisitor):
                                                 BejatParser.IdentifierContext)
         elif ctx.expression():
             expression_result = self.visit(ctx.expression())
-            print(expression_result)
             variable_notekeeper.declareVariable(self.visit(ctx.identifier(0)),
                                                 ctx.DATATYPES().__str__(),
                                                 expression_result, BejatParser.ExpressionContext)
@@ -61,12 +60,35 @@ class BejatCustomVisitor(BejatVisitor):
             print("Yang bener lah tolol")
             exit(1)
         return value
+    
+    def visitFunctionBody(self, ctx: BejatParser.FunctionBodyContext):
+        return self.visit(ctx.program())
+
+    def visitCallFunction(self, ctx: BejatParser.CallFunctionContext):
+        func_id = self.visit(ctx.identifier(0))
+        if func_id == "bilang":
+            text = self.visit(ctx.getChild(3))
+            if type(ctx.getChild(3)) == BejatParser.IdentifierContext:
+                text = self.identifierValue(ctx.getChild(3))
+            print(text)
+        else:
+            function_id = ctx.identifier(0)
+            # check the type of self.identifierValue(function_id) if confused
+            self.visitFunctionBody(self.identifierValue(function_id)())
+
+    # TODO: support for parameter
+    # TODO: Support for local variable
+    # TODO: Support return
+    # TODO: Fuck me
+    def visitDefineFunction(self, ctx: BejatParser.DefineFunctionContext):
+        variable_notekeeper.declareVariable(self.visit(ctx.identifier(0)),
+                                            ctx.DATATYPES().__str__(),
+                                            ctx.functionBody,
+                                            BejatParser.DefineFunctionContext)
 
     def visitExpression(self, ctx: BejatParser.ExpressionContext):
         left = None
         right = None
-
-        # TODO: Parse function defining
         # TODO: Do Function call
         if type(ctx.getChild(0)) == BejatParser.IdentifierContext:
             left = self.identifierValue(ctx.getChild(0))
