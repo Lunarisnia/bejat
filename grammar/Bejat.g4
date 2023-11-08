@@ -26,9 +26,11 @@ NUMBER: RAW_NUMBER;
 STRING: SINGLE_LINE_STRING {self.text = self.text[1:-1]};
 MATHOPERATORS: MATH_OPERATORS;
 COMPARISONOPERATORS: COMPARISON_OPERATORS;
+RETURN: 'balikin';
 
 DATATYPES: DATA_TYPES;
 IDENTIFIER: [a-zA-Z_][a-zA-Z0-9_]*;
+
 
 atom: BOOLEAN | NUMBER | STRING;
 
@@ -38,9 +40,9 @@ program: (variable | callFunction | defineFunction | statement | variableReassig
 
 identifier: IDENTIFIER;
 
-variable: (atom | identifier | expression) 'ini' DATATYPES 'nya' identifier;
+variable: (atom | identifier | expression | callFunction) 'ini' DATATYPES 'nya' identifier;
 
-variableReassignment: (atom | identifier | expression) 'ini' 'ganti' 'nya' identifier;
+variableReassignment: (atom | identifier | expression | callFunction) 'ini' 'ganti' 'nya' identifier;
 
 expression: (atom | identifier | callFunction) (
 		MATHOPERATORS
@@ -52,11 +54,15 @@ callFunction:
 		(atom | identifier) ('sama' (atom | identifier))*?
 	)*?;
 
+return: RETURN;
+
 defineFunction:
 	'ini buat balikin' DATATYPES identifier (
 		'pake' DATATYPES identifier ('sama' DATATYPES identifier)*?
-	)? '{' program '}';
+	)? '{' program (return (atom | identifier | expression | callFunction)) '}';
 
+
+// TODO: should allow return
 statement:
 	'kalo' expression '{' program '}' (
 		'kalo ga' expression '{' program '}'
