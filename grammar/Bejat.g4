@@ -56,10 +56,13 @@ callFunction:
 
 return: RETURN;
 
+functionBody: program;
+// (return (atom | identifier | expression | callFunction))?;
+
 defineFunction:
 	'ini buat balikin' DATATYPES identifier (
 		'pake' DATATYPES identifier ('sama' DATATYPES identifier)*?
-	)? '{' program (return (atom | identifier | expression | callFunction)) '}';
+	)? '{' functionBody '}';
 
 
 // TODO: should allow return
