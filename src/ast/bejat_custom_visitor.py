@@ -76,6 +76,7 @@ class BejatCustomVisitor(BejatVisitor):
             # check the type of self.identifierValue(function_id) if confused
             self.visitFunctionBody(self.identifierValue(function_id)())
 
+    # TODO: Might want to consider removing the ability to declare function
     # TODO: support for parameter
     # TODO: Support for local variable
     # TODO: Support return
