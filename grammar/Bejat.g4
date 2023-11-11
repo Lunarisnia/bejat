@@ -31,18 +31,27 @@ RETURN: 'balikin';
 DATATYPES: DATA_TYPES;
 IDENTIFIER: [a-zA-Z_][a-zA-Z0-9_]*;
 
-
 atom: BOOLEAN | NUMBER | STRING;
 
 start: program EOF;
 
-program: (variable | callFunction | defineFunction | statement | variableReassignment)*?;
+program: (
+		variable
+		| callFunction
+		| statement
+		| variableReassignment
+	)*?;
 
 identifier: IDENTIFIER;
 
 variable: (atom | identifier | expression | callFunction) 'ini' DATATYPES 'nya' identifier;
 
-variableReassignment: (atom | identifier | expression | callFunction) 'ini' 'ganti' 'nya' identifier;
+variableReassignment: (
+		atom
+		| identifier
+		| expression
+		| callFunction
+	) 'ini' 'ganti' 'nya' identifier;
 
 expression: (atom | identifier | callFunction) (
 		MATHOPERATORS
@@ -50,20 +59,16 @@ expression: (atom | identifier | callFunction) (
 	) (atom | identifier | callFunction);
 
 callFunction:
-	'panggilin' identifier  ('pake'
-		(atom | identifier) ('sama' (atom | identifier))*?
+	'panggilin' identifier (
+		'pake' (atom | identifier) ('sama' (atom | identifier))*?
 	)*?;
 
 return: RETURN;
 
-functionBody: program;
-// (return (atom | identifier | expression | callFunction))?;
+// functionBody: program; (return (atom | identifier | expression | callFunction))?;
 
-defineFunction:
-	'ini buat balikin' DATATYPES identifier (
-		'pake' DATATYPES identifier ('sama' DATATYPES identifier)*?
-	)? '{' functionBody '}';
-
+// defineFunction: 'ini buat balikin' DATATYPES identifier ( 'pake' DATATYPES identifier ('sama'
+// DATATYPES identifier)*? )? '{' functionBody '}';
 
 // TODO: should allow return
 statement:

@@ -60,9 +60,6 @@ class BejatCustomVisitor(BejatVisitor):
             print("Yang bener lah tolol")
             exit(1)
         return value
-    
-    def visitFunctionBody(self, ctx: BejatParser.FunctionBodyContext):
-        return self.visit(ctx.program())
 
     def visitCallFunction(self, ctx: BejatParser.CallFunctionContext):
         func_id = self.visit(ctx.identifier(0))
@@ -71,21 +68,10 @@ class BejatCustomVisitor(BejatVisitor):
             if type(ctx.getChild(3)) == BejatParser.IdentifierContext:
                 text = self.identifierValue(ctx.getChild(3))
             print(text)
+        elif func_id == "gaguna":
+            return "Gaguna"
         else:
-            function_id = ctx.identifier(0)
-            # check the type of self.identifierValue(function_id) if confused
-            self.visitFunctionBody(self.identifierValue(function_id)())
-
-    # TODO: Might want to consider removing the ability to declare function
-    # TODO: support for parameter
-    # TODO: Support for local variable
-    # TODO: Support return
-    # TODO: Fuck me
-    def visitDefineFunction(self, ctx: BejatParser.DefineFunctionContext):
-        variable_notekeeper.declareVariable(self.visit(ctx.identifier(0)),
-                                            ctx.DATATYPES().__str__(),
-                                            ctx.functionBody,
-                                            BejatParser.DefineFunctionContext)
+            print(f"{func_id} kaga ada. yang bener lah")
 
     def visitExpression(self, ctx: BejatParser.ExpressionContext):
         left = None
