@@ -71,7 +71,10 @@ callFunction:
 // DATATYPES identifier)*? )? '{' functionBody '}';
 
 // TODO: should allow return
-statement:
-	'kalo' expression '{' program '}' (
-		'kalo ga' expression '{' program '}'
-	)*? ('atoga' '{' program '}')?;
+statement: ifStatement;
+
+ifStatement : 'kalo' expression '{' program '}' (elseIfStatement)*? (elseStatement)?;
+
+elseIfStatement : 'kalo ga' expression '{' program '}';
+
+elseStatement : 'ato ga' '{' program '}';

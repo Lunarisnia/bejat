@@ -35,3 +35,14 @@ panggilin bilang pake a
 panggilin gaguna ini gantinya b
 
 panggilin bilang pake b
+
+
+kalo a sama ama 20 {
+    panggilin bilang pake "TRUEEEEE"
+} kalo ga a lebih dari 9999 {
+    panggilin bilang pake "elif"
+} kalo ga a kurang dari 1 {
+    panggilin bilang pake "ELIF2"
+} ato ga {
+    panggilin bilang pake "FALS2222E"
+}

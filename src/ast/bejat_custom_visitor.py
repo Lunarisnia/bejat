@@ -104,6 +104,29 @@ class BejatCustomVisitor(BejatVisitor):
             )
             exit(1)
 
+    def visitIfStatement(self, ctx: BejatParser.IfStatementContext):
+        expression = self.visitExpression(ctx.expression())
+        if expression:
+            self.visit(ctx.program())
+        else:
+            if ctx.elseIfStatement().__len__() > 0:
+                for elifstatement in ctx.elseIfStatement():
+                    expression = self.visitExpression(elifstatement.expression())
+                    if expression:
+                        self.visitElseIfStatement(elifstatement)
+                        break
+            if ctx.elseStatement() and not(expression):
+                self.visit(ctx.elseStatement())
+
+    def visitElseIfStatement(self, ctx: BejatParser.ElseIfStatementContext):
+        return self.visit(ctx.program())
+
+    def visitElseStatement(self, ctx: BejatParser.ElseStatementContext):
+        return self.visit(ctx.program())
+
+    def visitStatement(self, ctx: BejatParser.StatementContext):
+        return self.visit(ctx.ifStatement())
+
     def visitExpression(self, ctx: BejatParser.ExpressionContext):
         left = None
         right = None

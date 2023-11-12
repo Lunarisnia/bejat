@@ -34,7 +34,6 @@ class Variable:
                 print(f'Salah type lah itu bambang, emg {value} itu {data_type}?')
                 exit(1)
         elif ttype == BejatParser.IdentifierContext:
-            # TODO: Move the exist check on visitor
             if self.getVariable(value) != None:
                 value_type = type(self.global_variable_map[value])
                 if (value_type == float or value_type == int) and data_type == "nomor":
