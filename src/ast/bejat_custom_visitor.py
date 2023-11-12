@@ -91,6 +91,19 @@ class BejatCustomVisitor(BejatVisitor):
         else:
             print(f"{func_id} kaga ada. yang bener lah")
 
+    def visitVariableReassignment(self, ctx: BejatParser.VariableReassignmentContext):
+        result = self.visit(ctx.getChild(0))
+        key = self.visitIdentifier(ctx.identifier()[-1])
+        variable = self.identifierValue(ctx.identifier()[-1])
+
+        if type(result) == type(variable):
+            variable_notekeeper.updateValue(key, result)
+        else:
+            print(
+                f"{result} typenya beda sama {self.visitIdentifier(ctx.identifier()[-1])} yang bener dong"
+            )
+            exit(1)
+
     def visitExpression(self, ctx: BejatParser.ExpressionContext):
         left = None
         right = None
@@ -104,7 +117,6 @@ class BejatCustomVisitor(BejatVisitor):
             right = self.identifierValue(ctx.getChild(2))
         else:
             right = self.visit(ctx.getChild(2))
-
 
         if ctx.MATHOPERATORS():
             operator = ctx.MATHOPERATORS().__str__()

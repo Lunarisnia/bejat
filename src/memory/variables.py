@@ -9,13 +9,14 @@ class Variable:
             return self.global_variable_map[key]
         else:
             return None
+    
+    def updateValue(self, key: str, value):
+        if self.getVariable(key) != None:
+            self.global_variable_map[key] = value
+        else:
+            print(f"{key} belom dibuat bambang")
 
     def declareVariable(self, key: str, data_type: str, value, ttype: type):
-        # 1. Check if the var already exist (DONE)
-        # 2. Check if the type is the correct data type (DONE)
-        # 3. Check if its a variable (DONE)
-        # 4. Assign the var or reject (DONE)
-        # 5. Check if its a function
         parsed_value = None
         if key in self.global_variable_map:
             print(f"{key} kan udah dibikin bang. sehat?")

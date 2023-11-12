@@ -51,7 +51,7 @@ variableReassignment: (
 		| identifier
 		| expression
 		| callFunction
-	) 'ini' 'ganti' 'nya' identifier;
+	) 'ini' 'gantinya' identifier;
 
 expression: (atom | identifier | callFunction) (
 		MATHOPERATORS
@@ -60,7 +60,7 @@ expression: (atom | identifier | callFunction) (
 
 callFunction:
 	'panggilin' identifier (
-		'pake' (atom | identifier | callFunction) ('sama' (atom | identifier | callFunction))*?
+		'pake' (atom | identifier | callFunction | expression) ('sama' (atom | identifier | callFunction | expression))*?
 	)*?;
 
 // return: RETURN;
