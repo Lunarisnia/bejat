@@ -60,10 +60,10 @@ expression: (atom | identifier | callFunction) (
 
 callFunction:
 	'panggilin' identifier (
-		'pake' (atom | identifier) ('sama' (atom | identifier))*?
+		'pake' (atom | identifier | callFunction) ('sama' (atom | identifier | callFunction))*?
 	)*?;
 
-return: RETURN;
+// return: RETURN;
 
 // functionBody: program; (return (atom | identifier | expression | callFunction))?;
 

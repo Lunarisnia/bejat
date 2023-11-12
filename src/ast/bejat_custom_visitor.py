@@ -48,6 +48,14 @@ class BejatCustomVisitor(BejatVisitor):
                 expression_result,
                 BejatParser.ExpressionContext,
             )
+        elif ctx.callFunction():
+            function_result = self.visit(ctx.callFunction())
+            variable_notekeeper.declareVariable(
+                self.visit(ctx.identifier(0)),
+                ctx.DATATYPES().__str__(),
+                function_result,
+                BejatParser.CallFunctionContext,
+            )
         else:
             print("Lu mau ngapain cok?")
             exit(1)

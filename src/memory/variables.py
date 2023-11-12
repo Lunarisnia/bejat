@@ -21,7 +21,7 @@ class Variable:
             print(f"{key} kan udah dibikin bang. sehat?")
             exit(1)
 
-        if ttype == BejatParser.AtomContext or ttype == BejatParser.ExpressionContext:
+        if ttype == BejatParser.AtomContext or ttype == BejatParser.ExpressionContext or ttype == BejatParser.CallFunctionContext:
             value_type = type(value)
             if data_type == "nomor" and (value_type == float or value_type == int):
                 parsed_value = value
@@ -48,8 +48,6 @@ class Variable:
             else:
                 print(f"{value} belom dibikin tolol")
                 exit(1)
-        elif ttype == BejatParser.DefineFunctionContext:
-            parsed_value = value
         self.global_variable_map[key] = parsed_value
 
 
