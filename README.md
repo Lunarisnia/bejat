@@ -6,7 +6,7 @@
 </h1>
 
 <div align="center">
-    Bejat is an open source programming language that makes it hard to build simple, unreliable, and absolutely not efficient software with style (if you understand indonesian at least).
+    Bejat is an open source programming language that makes it hard to build simple, unreliable, and absolutely not efficient software with style.
 </div>
 <br />
 <br />
