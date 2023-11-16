@@ -132,7 +132,9 @@ Really? why would you want to compile this? No. Why would you want to download t
 But it's actually quite simple  
 1. Clone this repository
 2. `pip install -r requirements.txt`
-3. python3 ./main.py ./step_test.bejat
+3. Make sure you got antlr4 installed on your system if not then `pip install antlr4-tools`
+4. run ./generate_grammar.sh
+5. python3 ./main.py ./step_test.bejat
 
 Python 3.12+
 
