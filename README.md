@@ -31,7 +31,7 @@
     - [Else If](#else-if)
     - [Else](#else)
 - [How To Compile](#how-to-compile)
-- [How To Contribute)(#how-to-contribute)
+- [How To Contribute](#how-to-contribute)
 
 
 # How to Use
