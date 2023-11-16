@@ -31,6 +31,7 @@
     - [Else If](#else-if)
     - [Else](#else)
 - [How To Compile](#how-to-compile)
+- [How To Contribute)(#how-to-contribute)
 
 
 # How to Use
@@ -136,3 +137,6 @@ But it's actually quite simple
 Python 3.12+
 
 And also I reccomend doing everything inside a virtual environment.
+
+# How to Contribute
+Thank you for even reading this far into the README.md but honestly I don't think this project is worth contributing. Thank you again..
