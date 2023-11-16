@@ -48,7 +48,7 @@ Bejat is a strongly typed language with no support for type casting because I do
 
 - String: `tulisan`
 - Boolean: `bulen`
-- Integer: `nomor`
+- Number: `nomor`
 - Null: It doesn't exist, I am too lazy to implement it.
 
 ## Variable
