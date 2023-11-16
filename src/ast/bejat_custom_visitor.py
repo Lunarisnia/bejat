@@ -111,11 +111,12 @@ class BejatCustomVisitor(BejatVisitor):
         else:
             if ctx.elseIfStatement().__len__() > 0:
                 for elifstatement in ctx.elseIfStatement():
-                    expression = self.visitExpression(elifstatement.expression())
+                    expression = self.visitExpression(
+                        elifstatement.expression())
                     if expression:
                         self.visitElseIfStatement(elifstatement)
                         break
-            if ctx.elseStatement() and not(expression):
+            if ctx.elseStatement() and not (expression):
                 self.visit(ctx.elseStatement())
 
     def visitElseIfStatement(self, ctx: BejatParser.ElseIfStatementContext):
@@ -147,9 +148,11 @@ class BejatCustomVisitor(BejatVisitor):
                 if type(left) == str and type(right) == str:
                     return left + right
                 elif (
-                    type(left) == int or type(left) == float or type(left) == bool
+                    type(left) == int or type(
+                        left) == float or type(left) == bool
                 ) and (
-                    type(right) == int or type(right) == float or type(right) == bool
+                    type(right) == int or type(
+                        right) == float or type(right) == bool
                 ):
                     return left + right
                 else:
@@ -157,9 +160,11 @@ class BejatCustomVisitor(BejatVisitor):
                     exit(1)
             elif operator == "dikurang":
                 if (
-                    type(left) == int or type(left) == float or type(left) == bool
+                    type(left) == int or type(
+                        left) == float or type(left) == bool
                 ) and (
-                    type(right) == int or type(right) == float or type(right) == bool
+                    type(right) == int or type(
+                        right) == float or type(right) == bool
                 ):
                     return left - right
                 else:
@@ -167,9 +172,11 @@ class BejatCustomVisitor(BejatVisitor):
                     exit(1)
             elif operator == "dibagi":
                 if (
-                    type(left) == int or type(left) == float or type(left) == bool
+                    type(left) == int or type(
+                        left) == float or type(left) == bool
                 ) and (
-                    type(right) == int or type(right) == float or type(right) == bool
+                    type(right) == int or type(
+                        right) == float or type(right) == bool
                 ):
                     return left / right
                 else:
@@ -177,9 +184,11 @@ class BejatCustomVisitor(BejatVisitor):
                     exit(1)
             elif operator == "dikali":
                 if (
-                    type(left) == int or type(left) == float or type(left) == bool
+                    type(left) == int or type(
+                        left) == float or type(left) == bool
                 ) and (
-                    type(right) == int or type(right) == float or type(right) == bool
+                    type(right) == int or type(
+                        right) == float or type(right) == bool
                 ):
                     return left * right
                 else:
@@ -187,9 +196,11 @@ class BejatCustomVisitor(BejatVisitor):
                     exit(1)
             elif operator == "sisa bagi":
                 if (
-                    type(left) == int or type(left) == float or type(left) == bool
+                    type(left) == int or type(
+                        left) == float or type(left) == bool
                 ) and (
-                    type(right) == int or type(right) == float or type(right) == bool
+                    type(right) == int or type(
+                        right) == float or type(right) == bool
                 ):
                     return left % right
                 else:
@@ -203,38 +214,41 @@ class BejatCustomVisitor(BejatVisitor):
             if operator == "sama ama":
                 return left == right
             elif operator == "ga sama ama":
-                if (
-                    type(left) == int or type(left) == float or type(left) == bool
-                ) and (
-                    type(right) == int or type(right) == float or type(right) == bool
-                ):
-                    return left != right
+                return left != right
             elif operator == "lebih dari":
                 if (
-                    type(left) == int or type(left) == float or type(left) == bool
+                    type(left) == int or type(
+                        left) == float or type(left) == bool
                 ) and (
-                    type(right) == int or type(right) == float or type(right) == bool
+                    type(right) == int or type(
+                        right) == float or type(right) == bool
                 ):
                     return left > right
             elif operator == "lebih ato sama ama":
                 if (
-                    type(left) == int or type(left) == float or type(left) == bool
+                    type(left) == int or type(
+                        left) == float or type(left) == bool
                 ) and (
-                    type(right) == int or type(right) == float or type(right) == bool
+                    type(right) == int or type(
+                        right) == float or type(right) == bool
                 ):
                     return left >= right
             elif operator == "kurang dari":
                 if (
-                    type(left) == int or type(left) == float or type(left) == bool
+                    type(left) == int or type(
+                        left) == float or type(left) == bool
                 ) and (
-                    type(right) == int or type(right) == float or type(right) == bool
+                    type(right) == int or type(
+                        right) == float or type(right) == bool
                 ):
                     return left < right
             elif operator == "kurang ato sama ama":
                 if (
-                    type(left) == int or type(left) == float or type(left) == bool
+                    type(left) == int or type(
+                        left) == float or type(left) == bool
                 ) and (
-                    type(right) == int or type(right) == float or type(right) == bool
+                    type(right) == int or type(
+                        right) == float or type(right) == bool
                 ):
                     return left <= right
             else:

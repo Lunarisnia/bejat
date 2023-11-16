@@ -77,4 +77,4 @@ ifStatement : 'kalo' expression '{' program '}' (elseIfStatement)*? (elseStateme
 
 elseIfStatement : 'kalo ga' expression '{' program '}';
 
-elseStatement : 'ato ga' '{' program '}';
+elseStatement : 'yaudah' '{' program '}';

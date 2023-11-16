@@ -120,7 +120,7 @@ kalo a sama ama 20 {
     panggilin bilang pake "TRUEEEEE"
 } kalo ga a lebih dari 9999 {
     panggilin bilang pake "elif"
-} ato ga {
+} yaudah {
     panggilin bilang pake "ELSE"
 }
 ```

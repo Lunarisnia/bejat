@@ -43,6 +43,6 @@ kalo a sama ama 20 {
     panggilin bilang pake "elif"
 } kalo ga a kurang dari 1 {
     panggilin bilang pake "ELIF2"
-} ato ga {
+} yaudah {
     panggilin bilang pake "FALS2222E"
 }
