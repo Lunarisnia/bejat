@@ -30,7 +30,7 @@
     - [If](#if)
     - [Else If](#else-if)
     - [Else](#else)
-- [How To Compile](#how-to-compile)
+- [How To Run](#how-to-run)
 - [How To Contribute](#how-to-contribute)
 
 
@@ -126,7 +126,7 @@ kalo a sama ama 20 {
 }
 ```
 
-# How to Compile
+# How to Run
 Really? why would you want to compile this? No. Why would you want to download this in the first place? are you okay? Maybe you need to talk to a helpline? https://www.helpguide.org/find-help.htm
 
 But it's actually quite simple  
