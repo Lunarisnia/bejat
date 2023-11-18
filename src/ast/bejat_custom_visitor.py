@@ -1,8 +1,52 @@
+from time import sleep
+
 from grammar.BejatParser import BejatParser
 from grammar.BejatVisitor import BejatVisitor
 from src.memory.variables import variable_notekeeper
 from src.memory.to_number import toNumber, ParsingException
 
+from pynput import keyboard
+
+from concurrent import futures
+
+import grpc
+import grpc_gen.controller_pb2 as controller_pb
+import grpc_gen.controller_pb2_grpc as controller_pb_grpc
+
+keyboard_controller = keyboard.Controller()
+
+class Controller(controller_pb_grpc.ControllerServicer):
+    def PressedCharacter(self, request: controller_pb.PressedCharacterRequest, context):
+        print(f"Pressed: {request.character}")
+        keyboard_controller.press(request.character)
+        keyboard_controller.release(request.character)
+        return controller_pb.PressedCharacterResponse()
+
+    def PressedSpecial(self, request: controller_pb.PressedSpecialRequest, context):
+        print(f"Pressed: {request.key}")
+        if request.key == keyboard.Key.space.__str__():
+            keyboard_controller.press(keyboard.Key.space)
+            keyboard_controller.release(keyboard.Key.space)
+        if request.key == keyboard.Key.esc.__str__():
+            keyboard_controller.press(keyboard.Key.esc)
+            keyboard_controller.release(keyboard.Key.esc)
+        if request.key == keyboard.Key.ctrl_l.__str__():
+            keyboard_controller.press(keyboard.Key.ctrl_l)
+            keyboard_controller.release(keyboard.Key.ctrl_l)
+        if request.key == keyboard.Key.shift_l.__str__():
+            keyboard_controller.press(keyboard.Key.shift_l)
+            keyboard_controller.release(keyboard.Key.shift_l)
+        return controller_pb.PressedSpecialResponse()
+
+
+def serve():  
+    port = '6969'
+    server = grpc.server(futures.ThreadPoolExecutor(max_workers=10))
+    controller_pb_grpc.add_ControllerServicer_to_server(Controller(), server)
+    server.add_insecure_port("[::]:" + port)
+    server.start()
+    print(f"Server listening on {port}")
+    server.wait_for_termination()
 
 class BejatCustomVisitor(BejatVisitor):
     def visitStart(self, ctx: BejatParser.StartContext):
@@ -86,6 +130,8 @@ class BejatCustomVisitor(BejatVisitor):
             if type(ctx.getChild(3)) == BejatParser.IdentifierContext:
                 text = self.identifierValue(ctx.getChild(3))
             print(text)
+        elif func_id == "serverAjaib":
+            serve()
         elif func_id == "gaguna":
             return "Gaguna"
         
