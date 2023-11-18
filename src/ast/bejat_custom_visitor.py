@@ -40,6 +40,9 @@ class Controller(controller_pb_grpc.ControllerServicer):
         if request.key == keyboard.Key.backspace.__str__():
             keyboard_controller.press(keyboard.Key.backspace)
             keyboard_controller.release(keyboard.Key.backspace)
+        if request.key == keyboard.Key.enter.__str__():
+            keyboard_controller.press(keyboard.Key.enter)
+            keyboard_controller.release(keyboard.Key.enter)
         return controller_pb.PressedSpecialResponse()
 
 
