@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+
+package controller;
+
+service Controller {
+    rpc PressedCharacter(PressedCharacterRequest) returns (PressedCharacterResponse) {}
+    rpc PressedSpecial(PressedSpecialRequest) returns (PressedSpecialResponse) {}
+}
+
+message PressedCharacterRequest {
+    string character = 1;
+}
+
+message PressedCharacterResponse {
+    
+}
+
+message PressedSpecialRequest {
+    string key = 1;
+}
+
+message PressedSpecialResponse {
+    
+}

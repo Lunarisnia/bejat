@@ -88,6 +88,7 @@ class BejatCustomVisitor(BejatVisitor):
             print(text)
         elif func_id == "gaguna":
             return "Gaguna"
+        
         else:
             print(f"{func_id} kaga ada. yang bener lah")
 
