@@ -30,7 +30,8 @@
     - [If](#if)
     - [Else If](#else-if)
     - [Else](#else)
-- [How To Compile](#how-to-compile)
+- [How To Run](#how-to-run)
+- [How To Contribute](#how-to-contribute)
 
 
 # How to Use
@@ -47,7 +48,7 @@ Bejat is a strongly typed language with no support for type casting because I do
 
 - String: `tulisan`
 - Boolean: `bulen`
-- Integer: `nomor`
+- Number: `nomor`
 - Null: It doesn't exist, I am too lazy to implement it.
 
 ## Variable
@@ -125,14 +126,19 @@ kalo a sama ama 20 {
 }
 ```
 
-# How to Compile
+# How to Run
 Really? why would you want to compile this? No. Why would you want to download this in the first place? are you okay? Maybe you need to talk to a helpline? https://www.helpguide.org/find-help.htm
 
 But it's actually quite simple  
 1. Clone this repository
 2. `pip install -r requirements.txt`
-3. python3 ./main.py ./step_test.bejat
+3. Make sure you got antlr4 installed on your system if not then `pip install antlr4-tools`
+4. run ./generate_grammar.sh
+5. python3 ./main.py ./step_test.bejat
 
 Python 3.12+
 
 And also I reccomend doing everything inside a virtual environment.
+
+# How to Contribute
+Thank you for even reading this far into the README.md but honestly I don't think this project is worth contributing. Thank you again..
