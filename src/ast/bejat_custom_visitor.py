@@ -13,6 +13,7 @@ import grpc
 import grpc_gen.controller_pb2 as controller_pb
 import grpc_gen.controller_pb2_grpc as controller_pb_grpc
 
+
 keyboard_controller = keyboard.Controller()
 
 class Controller(controller_pb_grpc.ControllerServicer):
@@ -30,12 +31,15 @@ class Controller(controller_pb_grpc.ControllerServicer):
         if request.key == keyboard.Key.esc.__str__():
             keyboard_controller.press(keyboard.Key.esc)
             keyboard_controller.release(keyboard.Key.esc)
-        if request.key == keyboard.Key.ctrl_l.__str__():
-            keyboard_controller.press(keyboard.Key.ctrl_l)
-            keyboard_controller.release(keyboard.Key.ctrl_l)
+        if request.key == keyboard.Key.ctrl.__str__():
+            keyboard_controller.press(keyboard.Key.ctrl)
+            keyboard_controller.release(keyboard.Key.ctrl)
         if request.key == keyboard.Key.shift_l.__str__():
             keyboard_controller.press(keyboard.Key.shift_l)
             keyboard_controller.release(keyboard.Key.shift_l)
+        if request.key == keyboard.Key.backspace.__str__():
+            keyboard_controller.press(keyboard.Key.backspace)
+            keyboard_controller.release(keyboard.Key.backspace)
         return controller_pb.PressedSpecialResponse()
 
 
@@ -132,6 +136,22 @@ class BejatCustomVisitor(BejatVisitor):
             print(text)
         elif func_id == "serverAjaib":
             serve()
+        elif func_id == "klienAjaib":
+            grpc_host = self.visit(ctx.getChild(3))
+            if type(ctx.getChild(3)) == BejatParser.IdentifierContext:
+                grpc_host = self.identifierValue(ctx.getChild(3))
+            grpc_channel = grpc.insecure_channel(grpc_host)
+            controller = controller_pb_grpc.ControllerStub(grpc_channel)
+            def on_press(key: keyboard.KeyCode):
+                try:
+                    controller.PressedCharacter(
+                        controller_pb.PressedCharacterRequest(character=key.char))
+                except AttributeError:
+                    controller.PressedSpecial(
+                        controller_pb.PressedSpecialRequest(key=key.__str__()))
+            with keyboard.Listener(on_press=on_press) as listener:
+                listener.join()
+
         elif func_id == "gaguna":
             return "Gaguna"
         
