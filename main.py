@@ -1,9 +1,16 @@
+import http
 import sys
+from http.server import HTTPServer
+from http.server import BaseHTTPRequestHandler
+
 import antlr4
 from grammar.BejatLexer import BejatLexer
 from grammar.BejatParser import BejatParser
 
 from src.ast.bejat_custom_visitor import BejatCustomVisitor
+
+
+# TODO: make an interesting homepage out of bejat frontend
 
 def main(argv):
     input_stream = antlr4.FileStream(argv[1])

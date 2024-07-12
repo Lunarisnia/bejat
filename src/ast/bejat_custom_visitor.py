@@ -1,4 +1,7 @@
+import os
+from http.server import SimpleHTTPRequestHandler
 from time import sleep
+from http.server import HTTPServer as BaseHTTPServer, SimpleHTTPRequestHandler
 
 from grammar.BejatParser import BejatParser
 from grammar.BejatVisitor import BejatVisitor
@@ -54,6 +57,40 @@ def serve():
     server.start()
     print(f"Server listening on {port}")
     server.wait_for_termination()
+
+html = ""
+class HTTPHandler(SimpleHTTPRequestHandler):
+    """This handler uses server.base_path instead of always using os.getcwd()"""
+
+    def translate_path(self, path):
+        path = SimpleHTTPRequestHandler.translate_path(self, path)
+        relpath = os.path.relpath(path, os.getcwd())
+        fullpath = os.path.join(self.server.base_path, relpath)
+        return fullpath
+
+    def do_GET(self):
+        self.send_response(200, 'OK')
+        self.send_header('Content-type', 'html')
+        self.end_headers()
+        self.wfile.write(bytes(html, 'UTF-8'))
+        # self.wfile.write(bytes("<html> <head><title> Hello World </title> </head> <body>", 'UTF-8'))
+        # body = "<h1>Hello,World!</h1></body></html>"
+        # self.wfile.write(bytes(body, 'UTF-8'))
+
+
+class HTTPServer(BaseHTTPServer):
+    """The main server, you pass in base_path which is the path you want to serve requests from"""
+
+    def __init__(self, base_path, server_address, RequestHandlerClass=HTTPHandler):
+        self.base_path = base_path
+        BaseHTTPServer.__init__(self, server_address, RequestHandlerClass)
+
+web_dir = os.path.join(os.path.dirname(__file__), 'my_dir')
+
+def webserver():
+    print("Webserver listening on 8000")
+    httpd = HTTPServer(web_dir, ("", 8000))
+    httpd.serve_forever()
 
 class BejatCustomVisitor(BejatVisitor):
     def visitStart(self, ctx: BejatParser.StartContext):
@@ -157,6 +194,14 @@ class BejatCustomVisitor(BejatVisitor):
 
         elif func_id == "gaguna":
             return "Gaguna"
+        elif func_id == "webserver":
+            text = self.visit(ctx.getChild(3))
+            if type(ctx.getChild(3)) == BejatParser.IdentifierContext:
+                text = self.identifierValue(ctx.getChild(3))
+            # print(text, "====!!!!")
+            global html
+            html = text
+            webserver()
         
         else:
             print(f"{func_id} kaga ada. yang bener lah")

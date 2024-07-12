@@ -48,5 +48,14 @@ kalo a sama ama 20 {
 }
              
 
-             
-panggilin serverAjaib
+panggilin webserver pake
+"
+<html>
+<head>
+	<title>Hei</title>
+</head>
+<body>
+	<h1>Hello, World!</h1>
+</body>
+</html>
+"
